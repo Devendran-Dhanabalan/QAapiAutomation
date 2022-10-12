@@ -1,0 +1,77 @@
+pipeline {
+    agent any
+    environment {
+        JAVA_HOME = '/usr/lib/jvm/jre-openjdk'
+        MAVEN_HOME = '/opt/maven'
+        PATH = "${env.JAVA_HOME}/bin:${env.MAVEN_HOME}/bin:${env.PATH}"
+    }
+    stages {
+        stage ('Initialize') {
+            steps {
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "MAVEN_HOME = ${MAVEN_HOME}"
+                '''
+            }
+        }
+
+        stage ('Test') {
+            steps {
+                script{
+                    try{
+                      sh "mvn clean test -Denv=${params.env} -Dmobilenumber=${params.mobilenumber} -Dpassword=${params.password} -Dcuserid=${params.cuserid}"
+                    }
+                    catch(err){
+                        currentBuild.result = 'FAILURE'
+                    }
+                }
+
+            }
+            post {
+                success {
+                    junit 'target/surefire-reports/**/*.xml'
+                }
+            }
+        }
+        stage('Publish HTML Report'){
+		  steps{
+		    script {
+		    try{
+            def reportpath = "${env.WORKSPACE}/target/ExtentReports/AutomationReport.html"
+            echo "report path is: " +reportpath
+
+		        publishHTML target:
+		        [allowMissing: false,
+		        alwaysLinkToLastBuild: false,
+		        keepAll: true,
+		        reportDir: 'target/ExtentReports',
+		        reportFiles: 'AutomationReport.html',
+		        reportName: 'Automation Report',
+		        reportTitles: 'Automation Run']
+		    }
+		    catch(err){
+                      echo "Error in publishing report"
+                  }
+			}
+		  }
+		}
+
+		stage('Send Email'){
+            steps{
+                script{
+                    def mailRecipients = "${params.recipients}"
+                    def jobName = currentBuild.fullDisplayName
+                    archiveArtifacts artifacts: 'target/ExtentReports/AutomationReport.html', onlyIfSuccessful: true
+                    emailext body: '''${SCRIPT, template="groovy-html.template"}''',
+                    //emailext body: '''${JELLY_SCRIPT, template="html-with-health-and-console.jelly"}''',
+                    mimeType:'text/html',
+                    subject: "[JENKINS] ${jobName}",
+                    to: "${mailRecipients}",
+                    replyTo: "${mailRecipients}",
+                    attachmentsPattern:'target/ExtentReports/AutomationReport.html',
+                    recipientProviders: [[$class: 'CulpritsRecipientProvider']]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Welcome1",
+  "definitions": {
+    "Welcome1": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/Data"
+        }
+      },
+      "required": [
+        "code",
+        "data",
+        "message"
+      ],
+      "title": "Welcome1"
+    },
+    "Data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "dpr": {
+          "type": "string"
+        },
+        "companyName": {
+          "type": "string"
+        },
+        "exDate": {
+          "type": "string"
+        },
+        "faceValue": {
+          "type": "string"
+        },
+        "intradayTrading": {
+          "type": "string"
+        },
+        "marginTrading": {
+          "type": "string"
+        },
+        "ExchangeSymbol": {
+          "type": "string"
+        },
+        "scripCode": {
+          "type": "string",
+          "format": "integer"
+        },
+        "series": {
+          "type": "string"
+        },
+        "remarks": {
+          "type": "string"
+        },
+        "ISINCode": {
+          "type": "string"
+        },
+        "tickSize": {
+          "type": "string"
+        },
+        "freezeQty": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ExchangeSymbol",
+        "ISINCode",
+        "category",
+        "companyName",
+        "dpr",
+        "exDate",
+        "faceValue",
+        "freezeQty",
+        "intradayTrading",
+        "marginTrading",
+        "remarks",
+        "scripCode",
+        "series",
+        "tickSize"
+      ],
+      "title": "Data"
+    }
+  }
+}

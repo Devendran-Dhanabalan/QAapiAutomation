@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Welcome7",
+  "definitions": {
+    "Welcome7": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/Data"
+        }
+      },
+      "required": [
+        "code",
+        "data",
+        "message"
+      ],
+      "title": "Welcome7"
+    },
+    "Data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "clientIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "version": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        },
+        "appkey": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "lastLogin": {
+          "type": "string"
+        },
+        "customerFullName": {
+          "type": "string"
+        },
+        "firstName": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "token": {
+          "type": "string"
+        },
+        "jSessionId": {
+          "type": "string"
+        },
+        "userSessionId": {
+          "type": "string"
+        },
+        "isCugUser": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "action",
+        "appkey",
+        "clientIds",
+        "customerFullName",
+        "firstName",
+        "isCugUser",
+        "jSessionId",
+        "lastLogin",
+        "message",
+        "result",
+        "token",
+        "userSessionId",
+        "version"
+      ],
+      "title": "Data"
+    }
+  }
+}

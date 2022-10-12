@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="QA Automation Test Suite">
+    <listeners>
+        <listener class-name="com.qa.listeners.ListenerClass"/>
+    </listeners>
+    <test verbose="5"
+          name="QA Tests Scenarios">
+        <packages>
+            <package name="com.qa.tests">
+            </package>
+        </packages>
+    </test>
+</suite>

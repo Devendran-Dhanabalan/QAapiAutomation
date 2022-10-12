@@ -1,0 +1,15 @@
+{
+  "data": {
+    "watchListNames": [
+      "Watchlist1",
+      "Watchlist2",
+      "Watchlist3",
+      "Watchlist4",
+      "Watchlist5"
+    ],
+    "predefinedwatchListNames": [
+      "N",
+      "S"
+    ]
+  }
+}
